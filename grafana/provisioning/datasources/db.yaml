@@ -4,6 +4,7 @@ datasources:
   - name: Postgres | a11ydata
     type: postgres
     url: postgres:5432
+    uid: SCi_YTYVz
     database: a11ydata
     user: grafanareader
     secureJsonData:
