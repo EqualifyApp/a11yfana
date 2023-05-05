@@ -17,6 +17,7 @@ RUN apt-get update && \
 COPY ./grafana/grafana.ini /etc/grafana/grafana.ini
 COPY ./grafana/ldap.toml /etc/grafana/ldap.toml
 COPY ./grafana/provisioning /etc/grafana/provisioning
+COPY ./grafana/dashboards /var/lib/grafana/dashboards
 
 # Run Grafana
 CMD grafana-server --homepath=/usr/share/grafana --config=/etc/grafana/grafana.ini --packaging=docker
