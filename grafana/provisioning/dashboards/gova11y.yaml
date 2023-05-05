@@ -1,0 +1,11 @@
+apiVersion: 1
+# This copies the entire directory structure in the dashboard folder: grafana/dashboards
+# More info: https://grafana.com/docs/grafana/latest/administration/provisioning/#provision-folders-structure-from-filesystem-to-grafana
+
+providers:
+  - name: dashboards
+    type: file
+    updateIntervalSeconds: 30
+    options:
+      path: /var/lib/grafana/dashboards
+      foldersFromFilesStructure: true
