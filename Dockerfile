@@ -18,9 +18,8 @@ COPY ./grafana/grafana.ini /etc/grafana/grafana.ini
 COPY ./grafana/ldap.toml /etc/grafana/ldap.toml
 COPY ./grafana/provisioning /etc/grafana/provisioning
 
-# Enable and start Grafana service
-RUN systemctl enable grafana-server.service
-CMD systemctl start grafana-server && sleep infinity
+# Run Grafana
+CMD grafana-server --homepath=/usr/share/grafana --config=/etc/grafana/grafana.ini --packaging=docker
 
 # Expose Grafana on port 3000
 EXPOSE 3000
