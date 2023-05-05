@@ -3,6 +3,11 @@ ARG GRAFANA_VERSION="latest"
 # Base image with Grafana
 FROM grafana/grafana:${GRAFANA_VERSION}
 
+# Copy custom configuration files
+COPY grafana/grafana.ini /etc/grafana/grafana.ini
+COPY grafana/ldap.toml /etc/grafana/ldap.toml
+COPY grafana/provisioning /etc/grafana/provisioning
+
 # Arguments and Environment variables
 ARG GF_INSTALL_IMAGE_RENDERER_PLUGIN="false"
 ARG GF_GID="0"
@@ -63,7 +68,4 @@ RUN if [ ! -z "${GF_INSTALL_PLUGINS}" ]; then \
       done \
     fi
 
-# Copy custom configuration files
-COPY grafana/grafana.ini /etc/grafana/grafana.ini
-COPY grafana/ldap.toml /etc/grafana/ldap.toml
-COPY grafana/provisioning /etc/grafana/provisioning
+expose 3000
