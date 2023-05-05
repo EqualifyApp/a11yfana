@@ -19,9 +19,9 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 24,
+  "id": 3,
   "links": [],
-  "liveNow": false,
+  "liveNow": true,
   "panels": [
     {
       "collapsed": false,
@@ -30,6 +30,478 @@
         "w": 24,
         "x": 0,
         "y": 0
+      },
+      "id": 7,
+      "panels": [],
+      "title": "Database Status",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "max": 50,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 11,
+        "x": 0,
+        "y": 1
+      },
+      "id": 6,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "valueMode": "color"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  COUNT(*) AS \"Active Connections\"\nFROM\n  pg_stat_activity\nWHERE\n  state = 'active';\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Active Connections",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 11,
+        "y": 1
+      },
+      "id": 13,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "valueMode": "color"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  relname AS \"Table\",\n  n_tup_ins AS \"Rows Inserted\",\n  n_tup_upd AS \"Rows Updated\",\n  n_tup_del AS \"Rows Deleted\"\nFROM\n  pg_stat_all_tables\nWHERE\n  schemaname NOT IN ('pg_catalog', 'information_schema')\n  AND relname not ilike 'pg_toast%'\nORDER BY\n  relname;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Rows Inserted, Updated, and Deleted",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 0,
+        "y": 4
+      },
+      "id": 8,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  COUNT(*) * 100 / current_setting('max_connections')::integer AS \"Connection Utilization\"\nFROM\n  pg_stat_activity;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Connection Utilization",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 5,
+        "y": 4
+      },
+      "id": 9,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (sum(heap_blks_hit) / (sum(heap_blks_hit) + sum(heap_blks_read))) * 100 AS \"Cache Hit Ratio\"\nFROM\n  pg_statio_user_tables;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Cache Hit Ratio",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 11,
+      "panels": [],
+      "title": "Activity",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "id": 12,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.91,
+        "fullHighlight": true,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "normal",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "Table",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  relname AS \"Table\",\n  seq_scan AS \"Sequential Scans\",\n  idx_scan AS \"Index Scans\"\nFROM\n  pg_stat_all_tables\nWHERE\n  schemaname NOT IN ('pg_catalog', 'information_schema')\n  AND relname not ilike 'pg_toast%'\nORDER BY\n  relname;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Sequential and Index Scans",
+      "type": "barchart"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 20
       },
       "id": 4,
       "panels": [],
@@ -91,7 +563,7 @@
         "h": 9,
         "w": 9,
         "x": 0,
-        "y": 1
+        "y": 21
       },
       "id": 5,
       "options": {
@@ -154,7 +626,7 @@
         "type": "postgres",
         "uid": "SCi_YTYVz"
       },
-      "description": "Table, column, & row breakdown for each table in ${db_schemas}.",
+      "description": "Table, column, & row breakdown for each table in ${db_schema}.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -179,6 +651,34 @@
               {
                 "color": "red",
                 "value": 80
+              },
+              {
+                "color": "#EAB839",
+                "value": 90
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 100
+              },
+              {
+                "color": "#EF843C",
+                "value": 110
+              },
+              {
+                "color": "#E24D42",
+                "value": 120
+              },
+              {
+                "color": "#1F78C1",
+                "value": 130
+              },
+              {
+                "color": "#BA43A9",
+                "value": 140
+              },
+              {
+                "color": "#705DA0",
+                "value": 150
               }
             ]
           },
@@ -203,20 +703,6 @@
                 }
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Column Count"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "thresholds"
-                }
-              }
-            ]
           }
         ]
       },
@@ -224,7 +710,7 @@
         "h": 9,
         "w": 8,
         "x": 9,
-        "y": 1
+        "y": 21
       },
       "id": 3,
       "options": {
@@ -253,7 +739,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "WITH table_info AS (\n  SELECT\n    table_name AS \"Table\",\n    COUNT(*) AS \"Column Count\"\n  FROM\n    information_schema.columns\n  WHERE\n    table_catalog = 'a11ydata'\n    AND table_schema = '${db_schemas}'\n  GROUP BY\n    table_name\n),\nrow_counts AS (\n  SELECT\n    table_name,\n    (xpath('/row/cnt/text()', xml_count))[1]::text::bigint as \"Row Count\"\n  FROM (\n    SELECT\n      table_name,\n      table_schema,\n      query_to_xml('SELECT count(*) as cnt FROM ' || quote_ident(table_schema) || '.' || quote_ident(table_name), false, true, '') as xml_count\n    FROM\n      information_schema.tables\n    WHERE\n      table_catalog = 'a11ydata'\n      AND table_schema = '${db_schemas}'\n  ) as sub_query\n)\nSELECT\n  ti.\"Table\",\n  ti.\"Column Count\",\n  rc.\"Row Count\"\nFROM\n  table_info ti\nJOIN row_counts rc ON ti.\"Table\" = rc.table_name\nORDER BY\n  ti.\"Table\";\n",
+          "rawSql": "WITH table_info AS (\n  SELECT\n    table_name AS \"Table\",\n    COUNT(*) AS \"Column Count\"\n  FROM\n    information_schema.columns\n  WHERE\n    table_catalog = 'a11ydata'\n    AND table_schema = '${db_schema}'\n  GROUP BY\n    table_name\n),\nrow_counts AS (\n  SELECT\n    table_name,\n    (xpath('/row/cnt/text()', xml_count))[1]::text::bigint as \"Row Count\"\n  FROM (\n    SELECT\n      table_name,\n      table_schema,\n      query_to_xml('SELECT count(*) as cnt FROM ' || quote_ident(table_schema) || '.' || quote_ident(table_name), false, true, '') as xml_count\n    FROM\n      information_schema.tables\n    WHERE\n      table_catalog = 'a11ydata'\n      AND table_schema = '${db_schema}'\n  ) as sub_query\n)\nSELECT\n  ti.\"Table\",\n  ti.\"Column Count\",\n  rc.\"Row Count\"\nFROM\n  table_info ti\nJOIN row_counts rc ON ti.\"Table\" = rc.table_name\nORDER BY\n  ti.\"Table\";\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -274,21 +760,446 @@
           }
         }
       ],
-      "title": "Schema Size: ${db_schemas}",
+      "title": "Schema Size: ${db_schema}",
       "type": "table"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 30
       },
       "id": 2,
       "panels": [],
       "title": "Database Structure",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 31
+      },
+      "id": 14,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": true,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  relname AS \"Table\",\n  n_dead_tup AS \"Dead Rows\",\n  n_mod_since_analyze AS \"Unused Indexes\"\nFROM\n  pg_stat_all_tables\nWHERE\n  schemaname NOT IN ('pg_catalog', 'information_schema')\n  AND relname not ilike 'pg_toast%'\nORDER BY\n  relname;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Dead Rows and Unused Indexes",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 12,
+        "y": 31
+      },
+      "id": 10,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "never",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  relname AS \"Table\",\n  pg_size_pretty(pg_total_relation_size(C.oid)) AS \"Size\"\nFROM\n  pg_class C\nLEFT JOIN pg_namespace N ON (N.oid = C.relnamespace)\nWHERE\n  nspname NOT IN ('pg_catalog', 'information_schema') AND\n  nspname !~ '^pg_toast' AND\n  relkind = 'r'\nORDER BY\n  pg_total_relation_size(C.oid) DESC;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  relname AS \"Table\",\n  pg_total_relation_size(C.oid) / 1024 AS \"Size (kB)\"\nFROM\n  pg_class C\nLEFT JOIN pg_namespace N ON (N.oid = C.relnamespace)\nWHERE\n  nspname NOT IN ('pg_catalog', 'information_schema') AND\n  nspname !~ '^pg_toast' AND\n  relkind = 'r'\nORDER BY\n  pg_total_relation_size(C.oid) DESC;\n",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Disk Usage by Tables",
+      "type": "barchart"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "id": 18,
+      "panels": [],
+      "title": "Performance",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 8,
+        "x": 0,
+        "y": 40
+      },
+      "id": 17,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "\n\n### Checkpoint Write Time\nThe total time spent writing checkpoint-related data to disk, measured in milliseconds. This metric helps you understand the overall efficiency and performance of the checkpoint process. Higher values may indicate potential bottlenecks in the system's I/O performance during checkpoint operations.\n\n### Checkpoint Sync Time\nThe total time spent synchronizing the file system after a checkpoint has been written, measured in milliseconds. This metric helps you understand the overall performance of the file system and how it may impact the checkpoint process. Higher values may indicate potential issues with file system performance or other underlying storage system factors.\n\n### Scheduled Checkpoints\nThe total number of checkpoints that were initiated automatically by the PostgreSQL database due to various system parameters, such as checkpoint_timeout or max_wal_size. Monitoring this value can help you understand the database's checkpoint behavior and adjust the system parameters if necessary to balance performance and data consistency.\n\n### Requested Checkpoints\nThe total number of checkpoints that were requested explicitly by users, either by executing the CHECKPOINT command or by other means (e.g., during a database backup). Monitoring this value can help you track user-initiated checkpoint operations and identify any patterns that may affect the database's performance.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.5.1",
+      "title": "Checkpoint Performance",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Checkpoint Write Time"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dtdurationms"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Checkpoint Sync Time"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dtdurationms"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 16,
+        "x": 8,
+        "y": 40
+      },
+      "id": 16,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  checkpoints_timed AS \"Scheduled Checkpoints\",\n  checkpoints_req AS \"Requested Checkpoints\"\nFROM\n  pg_stat_bgwriter;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  checkpoint_write_time AS \"Checkpoint Write Time\",  -- in ms\n  checkpoint_sync_time AS \"Checkpoint Sync Time\" --ms\nFROM\n  pg_stat_bgwriter;",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Checkpoint Performance",
+      "type": "stat"
     }
   ],
   "refresh": "",
@@ -302,15 +1213,15 @@
       {
         "current": {
           "selected": true,
-          "text": "orgs",
-          "value": "orgs"
+          "text": "targets",
+          "value": "targets"
         },
         "description": "The various Postgres Schemas",
         "hide": 0,
         "includeAll": false,
         "label": "Database Schemas",
         "multi": false,
-        "name": "db_schemas",
+        "name": "db_schema",
         "options": [
           {
             "selected": false,
@@ -323,7 +1234,7 @@
             "value": "events"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "orgs",
             "value": "orgs"
           },
@@ -338,7 +1249,7 @@
             "value": "results"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "targets",
             "value": "targets"
           }
@@ -351,13 +1262,13 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-2d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "System Overview",
   "uid": "c9e94478-9742-4610-ad28-47d8f759f2ef",
-  "version": 8,
+  "version": 1,
   "weekStart": ""
 }

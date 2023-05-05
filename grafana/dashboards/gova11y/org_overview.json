@@ -11,6 +11,12 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
@@ -19,288 +25,165 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 25,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "collapsed": true,
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Dashboard --"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 0,
+        "y": 0
+      },
+      "id": 11,
+      "options": {
+        "folderId": 1,
+        "maxItems": 10,
+        "query": "",
+        "showHeadings": false,
+        "showRecentlyViewed": false,
+        "showSearch": true,
+        "showStarred": false,
+        "tags": []
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "-- Dashboard --"
+          },
+          "panelId": 3,
+          "refId": "A"
+        }
+      ],
+      "transformations": [
+        {
+          "disabled": true,
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Domain": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Impact": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Scan id": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "dashlist"
+    },
+    {
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 4
       },
       "id": 7,
-      "panels": [
-        {
-          "datasource": {
-            "type": "postgres",
-            "uid": "SCi_YTYVz"
-          },
-          "description": "Number of URLs crawled",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "fixedColor": "semi-dark-red",
-                "mode": "fixed"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "locale"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 3,
-            "w": 8,
-            "x": 0,
-            "y": 1
-          },
-          "id": 1,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "postgres",
-                "uid": "SCi_YTYVz"
-              },
-              "editorMode": "code",
-              "format": "table",
-              "rawQuery": true,
-              "rawSql": "SELECT count(*)\nFROM targets.urls;",
-              "refId": "A",
-              "sql": {
-                "columns": [
-                  {
-                    "parameters": [],
-                    "type": "function"
-                  }
-                ],
-                "groupBy": [
-                  {
-                    "property": {
-                      "type": "string"
-                    },
-                    "type": "groupBy"
-                  }
-                ],
-                "limit": 50
-              }
-            }
-          ],
-          "title": "Total URLs Monitored",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "postgres",
-            "uid": "SCi_YTYVz"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "fixedColor": "semi-dark-red",
-                "mode": "fixed"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "locale"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 3,
-            "w": 4,
-            "x": 0,
-            "y": 4
-          },
-          "id": 8,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "postgres",
-                "uid": "SCi_YTYVz"
-              },
-              "editorMode": "code",
-              "format": "table",
-              "rawQuery": true,
-              "rawSql": "Select count(*)\nfrom targets.domains;",
-              "refId": "A",
-              "sql": {
-                "columns": [
-                  {
-                    "parameters": [],
-                    "type": "function"
-                  }
-                ],
-                "groupBy": [
-                  {
-                    "property": {
-                      "type": "string"
-                    },
-                    "type": "groupBy"
-                  }
-                ],
-                "limit": 50
-              }
-            }
-          ],
-          "title": "Domains",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "postgres",
-            "uid": "SCi_YTYVz"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "fixedColor": "semi-dark-red",
-                "mode": "fixed"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "locale"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 3,
-            "w": 4,
-            "x": 4,
-            "y": 4
-          },
-          "id": 9,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "postgres",
-                "uid": "SCi_YTYVz"
-              },
-              "editorMode": "code",
-              "format": "table",
-              "rawQuery": true,
-              "rawSql": "Select count(*)\nfrom targets.sitemaps;",
-              "refId": "A",
-              "sql": {
-                "columns": [
-                  {
-                    "parameters": [],
-                    "type": "function"
-                  }
-                ],
-                "groupBy": [
-                  {
-                    "property": {
-                      "type": "string"
-                    },
-                    "type": "groupBy"
-                  }
-                ],
-                "limit": 50
-              }
-            }
-          ],
-          "title": "Sitemaps",
-          "type": "stat"
-        }
-      ],
+      "panels": [],
       "title": "Heros",
       "type": "row"
     },
     {
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 1
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
       },
-      "id": 10,
-      "title": "Government Stats",
-      "type": "row"
+      "description": "Number of URLs crawled",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "semi-dark-red",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 0,
+        "y": 5
+      },
+      "id": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(*)\nFROM targets.urls;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Total URLs Monitored",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -335,8 +218,8 @@
       "gridPos": {
         "h": 3,
         "w": 8,
-        "x": 0,
-        "y": 2
+        "x": 8,
+        "y": 5
       },
       "id": 4,
       "options": {
@@ -392,6 +275,260 @@
         "type": "postgres",
         "uid": "SCi_YTYVz"
       },
+      "description": "All monitored URLs for your filter",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "purple",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 16,
+        "y": 5
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(*)\nFROM targets.urls AS tu\nJOIN targets.domains AS td ON td.id = tu.domain_id\nWHERE (url ILIKE '%.gov%' OR url ILIKE '%.mil%')\n  AND td.\"domain\" IN (${domain}); -- Filter by domain\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Targeted URLs",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "semi-dark-red",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 0,
+        "y": 8
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "Select count(*)\nfrom targets.domains;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Domains",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "semi-dark-red",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 4,
+        "y": 8
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "Select count(*)\nfrom targets.sitemaps;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Sitemaps",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
       "description": "Count of US Govt Domains",
       "fieldConfig": {
         "defaults": {
@@ -420,8 +557,8 @@
       "gridPos": {
         "h": 3,
         "w": 4,
-        "x": 0,
-        "y": 5
+        "x": 8,
+        "y": 8
       },
       "id": 6,
       "options": {
@@ -504,8 +641,8 @@
       "gridPos": {
         "h": 3,
         "w": 4,
-        "x": 4,
-        "y": 5
+        "x": 12,
+        "y": 8
       },
       "id": 5,
       "options": {
@@ -557,33 +694,16 @@
       "type": "stat"
     },
     {
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 8
-      },
-      "id": 2,
-      "title": "Row title",
-      "type": "row"
-    },
-    {
       "datasource": {
         "type": "postgres",
         "uid": "SCi_YTYVz"
       },
-      "description": "",
+      "description": "Count of your targeted domains",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
+            "fixedColor": "purple",
+            "mode": "fixed"
           },
           "mappings": [],
           "thresholds": {
@@ -598,29 +718,31 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "locale"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 13,
-        "x": 0,
-        "y": 9
+        "h": 3,
+        "w": 4,
+        "x": 16,
+        "y": 8
       },
-      "id": 3,
+      "id": 15,
       "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "enablePagination": true,
-          "fields": "",
-          "reducer": [
-            "sum"
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
           ],
-          "show": false
+          "fields": "",
+          "values": false
         },
-        "showHeader": true
+        "textMode": "auto"
       },
       "pluginVersion": "9.5.1",
       "targets": [
@@ -632,7 +754,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \n  td.\"domain\" AS \"Domain\",        \n  tu.url AS \"URL\",             \n  ar.scan_id AS \"Scan id\",         \n  -- ar.rule_type,       \n  ar.axe_id AS \"axe id\",          \n  ar.impact AS \"Impact\", \n\n  CONCAT(\n    ROUND(EXTRACT(EPOCH FROM (now() - asd.created_at)) / 60), \n    ' minutes ago'\n  ) AS \"Time since created\"  \n\n  -- asd.created_at       \nFROM \n  axe.rules AS ar\nJOIN\n  axe.scan_data AS asd ON asd.id = ar.scan_id\nJOIN\n  targets.urls AS tu ON tu.id = asd.url_id\nJOIN \n  targets.domains AS td ON td.id = tu.domain_id\nWHERE \n  ar.rule_type = 'violations' AND \n  ar.id IN (\n    SELECT DISTINCT r.id\n    FROM \n      axe.rules AS r,\n      jsonb_array_elements_text(r.tags) AS tag\n    WHERE \n      r.rule_type = 'violations' AND \n      tag LIKE '%wcag%'\n  )\n  AND asd.created_at >= $__timeFrom() AND asd.created_at <= $__timeTo()\n  ORDER BY asd.created_at DESC;",
+          "rawSql": "SELECT count(*)\nFROM targets.domains AS td\nWHERE (domain ILIKE '%.gov%' OR domain ILIKE '%.mil%')\n  AND td.\"domain\" IN (${domain}); -- Filter by domain\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -653,7 +775,519 @@
           }
         }
       ],
-      "title": "Axe Summary | WCAG Violations Only",
+      "title": "Targeted Domains",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "description": "Count of your targeted sitemaps",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "purple",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 20,
+        "y": 8
+      },
+      "id": 16,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(*)\nFROM targets.sitemaps AS sm\nJOIN targets.urls AS tu ON tu.id = sm.url_id\nJOIN targets.domains AS td ON td.id = tu.domain_id\nWHERE (url ILIKE '%.gov%' OR url ILIKE '%.mil%')\n  AND td.\"domain\" IN (${domain}); -- Filter by domain\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Targeted Sitemaps",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 10,
+      "panels": [],
+      "title": "WCAG Overview",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Critical"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Serious"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Moderate"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Minor"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 9,
+        "x": 0,
+        "y": 12
+      },
+      "id": 12,
+      "options": {
+        "displayLabels": [
+          "percent",
+          "name"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  td.\"domain\" AS \"Domain\",\n  --COUNT(ar.id) AS \"Violations\",\n  COUNT(CASE WHEN ar.impact = 'critical' THEN 1 END) AS \"Critical\",\n  COUNT(CASE WHEN ar.impact = 'serious' THEN 1 END) AS \"Serious\",\n  COUNT(CASE WHEN ar.impact = 'moderate' THEN 1 END) AS \"Moderate\",\n  COUNT(CASE WHEN ar.impact = 'minor' THEN 1 END) AS \"Minor\"\nFROM\n  axe.rules AS ar\nJOIN\n  axe.scan_data AS asd ON asd.id = ar.scan_id\nJOIN\n  targets.urls AS tu ON tu.id = asd.url_id\nJOIN\n  targets.domains AS td ON td.id = tu.domain_id\nWHERE\n  ar.rule_type = 'violations'\n  AND td.\"domain\" IN (${domain}) -- Filter by domain\n  AND ar.id IN (\n    SELECT DISTINCT r.id\n    FROM\n      axe.rules AS r,\n      jsonb_array_elements_text(r.tags) AS tag\n    WHERE\n      r.rule_type = 'violations'\n      AND tag LIKE '%wcag%'\n  )\n  AND asd.created_at >= $__timeFrom() AND asd.created_at <= $__timeTo()\nGROUP BY\n  td.\"domain\"\nORDER BY\n  COUNT(ar.id) DESC;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "WCAG Errors by Domain | TODO ORG",
+      "transparent": true,
+      "type": "piechart"
+    },
+    {
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 2,
+      "title": "Row title",
+      "type": "row"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 25
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "title": "Panel Title",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "description": "Filtered WCAG Violations",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-text"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "critical": {
+                  "color": "semi-dark-red",
+                  "index": 3,
+                  "text": "Critical"
+                },
+                "minor": {
+                  "color": "semi-dark-blue",
+                  "index": 0,
+                  "text": "Minor"
+                },
+                "moderate": {
+                  "color": "semi-dark-yellow",
+                  "index": 1,
+                  "text": "Moderate"
+                },
+                "serious": {
+                  "color": "semi-dark-orange",
+                  "index": 2,
+                  "text": "Serious"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Impact"
+            },
+            "properties": []
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Domain"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "text",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "URL"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "text",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 319
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "axe id"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "text",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 154
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 19,
+        "w": 14,
+        "x": 0,
+        "y": 33
+      },
+      "id": 3,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  td.\"domain\" AS \"Domain\",\n  tu.url AS \"URL\",\n  ar.axe_id AS \"axe id\",\n  ar.impact AS \"Impact\"\nFROM\n  axe.rules AS ar\nJOIN\n  axe.scan_data AS asd ON asd.id = ar.scan_id\nJOIN\n  targets.urls AS tu ON tu.id = asd.url_id\nJOIN\n  targets.domains AS td ON td.id = tu.domain_id\nWHERE\n  ar.rule_type = 'violations'\n  AND td.\"domain\" IN (${domain}) -- Filter by domain\n  AND ar.id IN (\n    SELECT DISTINCT r.id\n    FROM\n      axe.rules AS r,\n      jsonb_array_elements_text(r.tags) AS tag\n    WHERE\n      r.rule_type = 'violations'\n      AND tag LIKE '%wcag%'\n  )\n  AND asd.created_at >= $__timeFrom() AND asd.created_at <= $__timeTo()\nORDER BY\n  asd.created_at DESC;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "WCAG Violations",
+      "transformations": [],
       "type": "table"
     }
   ],
@@ -664,7 +1298,123 @@
     "production"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "code210.gsfc.nasa.gov",
+            "www-curator.jsc.nasa.gov",
+            "www.giss.nasa.gov",
+            "nasarecycles.nasa.gov",
+            "ecc.earthdata.nasa.gov",
+            "esmc-server.jpl.nasa.gov",
+            "nightsky.jpl.nasa.gov",
+            "www-691.gsfc.nasa.gov",
+            "flightopportunities.nasa.gov",
+            "icesat.gsfc.nasa.gov",
+            "galileo.jpl.nasa.gov",
+            "privacy.nasa.gov",
+            "mepag.jpl.nasa.gov",
+            "asrs.arc.nasa.gov",
+            "sti.nasa.gov",
+            "gimms.gsfc.nasa.gov",
+            "nssdc.gsfc.nasa.gov",
+            "c3.ndc.nasa.gov",
+            "acquisitions.jpl.nasa.gov",
+            "extapps.ksc.nasa.gov",
+            "sewp.nasa.gov",
+            "har.gsfc.nasa.gov",
+            "lep-pds.gsfc.nasa.gov",
+            "uavsar.jpl.nasa.gov",
+            "technology.jsc.nasa.gov",
+            "icb.nasa.gov",
+            "mua.ndc.nasa.gov",
+            "survey.nasa.gov",
+            "nek.ksc.nasa.gov",
+            "wvs.earthdata.nasa.gov",
+            "towerfts.csbf.nasa.gov",
+            "solrad-net.gsfc.nasa.gov",
+            "slsvvpub1sk.hosc.msfc.nasa.gov",
+            "cloud-object.larc.nasa.gov",
+            "cisto.gsfc.nasa.gov",
+            "www-airsea.jpl.nasa.gov",
+            "inms.gsfc.nasa.gov",
+            "cohoweb.gsfc.nasa.gov",
+            "bugs.sit.earthdata.nasa.gov",
+            "stabserv.larc.nasa.gov",
+            "climate.nasa.gov",
+            "ldas.gsfc.nasa.gov",
+            "gs6102dsc-goldsmr5.gesdisc.eosdis.nasa.gov",
+            "origins-habitability.jpl.nasa.gov"
+          ],
+          "value": [
+            "code210.gsfc.nasa.gov",
+            "www-curator.jsc.nasa.gov",
+            "www.giss.nasa.gov",
+            "nasarecycles.nasa.gov",
+            "ecc.earthdata.nasa.gov",
+            "esmc-server.jpl.nasa.gov",
+            "nightsky.jpl.nasa.gov",
+            "www-691.gsfc.nasa.gov",
+            "flightopportunities.nasa.gov",
+            "icesat.gsfc.nasa.gov",
+            "galileo.jpl.nasa.gov",
+            "privacy.nasa.gov",
+            "mepag.jpl.nasa.gov",
+            "asrs.arc.nasa.gov",
+            "sti.nasa.gov",
+            "gimms.gsfc.nasa.gov",
+            "nssdc.gsfc.nasa.gov",
+            "c3.ndc.nasa.gov",
+            "acquisitions.jpl.nasa.gov",
+            "extapps.ksc.nasa.gov",
+            "sewp.nasa.gov",
+            "har.gsfc.nasa.gov",
+            "lep-pds.gsfc.nasa.gov",
+            "uavsar.jpl.nasa.gov",
+            "technology.jsc.nasa.gov",
+            "icb.nasa.gov",
+            "mua.ndc.nasa.gov",
+            "survey.nasa.gov",
+            "nek.ksc.nasa.gov",
+            "wvs.earthdata.nasa.gov",
+            "towerfts.csbf.nasa.gov",
+            "solrad-net.gsfc.nasa.gov",
+            "slsvvpub1sk.hosc.msfc.nasa.gov",
+            "cloud-object.larc.nasa.gov",
+            "cisto.gsfc.nasa.gov",
+            "www-airsea.jpl.nasa.gov",
+            "inms.gsfc.nasa.gov",
+            "cohoweb.gsfc.nasa.gov",
+            "bugs.sit.earthdata.nasa.gov",
+            "stabserv.larc.nasa.gov",
+            "climate.nasa.gov",
+            "ldas.gsfc.nasa.gov",
+            "gs6102dsc-goldsmr5.gesdisc.eosdis.nasa.gov",
+            "origins-habitability.jpl.nasa.gov"
+          ]
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "SCi_YTYVz"
+        },
+        "definition": "select domain from targets.domains",
+        "description": "List of domains",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Domain",
+        "multi": true,
+        "name": "domain",
+        "options": [],
+        "query": "select domain from targets.domains",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-6h",
@@ -674,6 +1424,6 @@
   "timezone": "",
   "title": "Organization Overview",
   "uid": "bff0be16-36f4-43fe-8064-d176f3e3c60a",
-  "version": 13,
+  "version": 1,
   "weekStart": ""
 }
