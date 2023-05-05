@@ -3,7 +3,8 @@ FROM ubuntu:latest
 
 # Update and install necessary packages
 RUN apt-get update && \
-    apt-get install -y apt-transport-https software-properties-common wget systemd
+    apt-get install -y apt-transport-https software-properties-common wget systemd git && \
+    git clone https://github.com/vishnubob/wait-for-it.git /wait-for-it
 
 # Add Grafana key and repository
 RUN wget -q -O /usr/share/keyrings/grafana.key https://apt.grafana.com/gpg.key && \
@@ -20,7 +21,7 @@ COPY ./grafana/provisioning /etc/grafana/provisioning
 COPY ./grafana/dashboards /var/lib/grafana/dashboards
 
 # Run Grafana
-CMD grafana-server --homepath=/usr/share/grafana --config=/etc/grafana/grafana.ini --packaging=docker
+CMD /wait-for-it/wait-for-it.sh postgres:5432 --timeout=60 --strict -- grafana-server --homepath=/usr/share/grafana --config=/etc/grafana/grafana.ini --packaging=docker
 
 # Expose Grafana on port 3000
 EXPOSE 3000
