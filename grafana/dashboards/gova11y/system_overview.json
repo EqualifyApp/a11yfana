@@ -1,0 +1,363 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "The technical infrastructure of GovA11y",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 24,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "panels": [],
+      "repeat": "db_schemas",
+      "repeatDirection": "h",
+      "title": "Schemas",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "description": "The number of tables in each schema",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlYlRd"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 86,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 9,
+        "x": 0,
+        "y": 1
+      },
+      "id": 5,
+      "options": {
+        "barRadius": 0.1,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT table_schema AS \"Schema\", COUNT(*) AS \"Tables\"\nFROM information_schema.tables\nWHERE table_catalog = 'a11ydata'\nAND table_schema IN ('targets', 'results', 'refs', 'axe', 'events', 'orgs')\nGROUP BY table_schema;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "How many tables are in each schema?",
+      "transparent": true,
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "SCi_YTYVz"
+      },
+      "description": "Table, column, & row breakdown for each table in ${db_schemas}.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlPu"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-text"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Table"
+            },
+            "properties": [
+              {
+                "id": "custom.filterable",
+                "value": true
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "text",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Column Count"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 9,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": [
+            "Column Count",
+            "Row Count"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "SCi_YTYVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH table_info AS (\n  SELECT\n    table_name AS \"Table\",\n    COUNT(*) AS \"Column Count\"\n  FROM\n    information_schema.columns\n  WHERE\n    table_catalog = 'a11ydata'\n    AND table_schema = '${db_schemas}'\n  GROUP BY\n    table_name\n),\nrow_counts AS (\n  SELECT\n    table_name,\n    (xpath('/row/cnt/text()', xml_count))[1]::text::bigint as \"Row Count\"\n  FROM (\n    SELECT\n      table_name,\n      table_schema,\n      query_to_xml('SELECT count(*) as cnt FROM ' || quote_ident(table_schema) || '.' || quote_ident(table_name), false, true, '') as xml_count\n    FROM\n      information_schema.tables\n    WHERE\n      table_catalog = 'a11ydata'\n      AND table_schema = '${db_schemas}'\n  ) as sub_query\n)\nSELECT\n  ti.\"Table\",\n  ti.\"Column Count\",\n  rc.\"Row Count\"\nFROM\n  table_info ti\nJOIN row_counts rc ON ti.\"Table\" = rc.table_name\nORDER BY\n  ti.\"Table\";\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Schema Size: ${db_schemas}",
+      "type": "table"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 2,
+      "panels": [],
+      "title": "Database Structure",
+      "type": "row"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [
+    "production"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "orgs",
+          "value": "orgs"
+        },
+        "description": "The various Postgres Schemas",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Database Schemas",
+        "multi": false,
+        "name": "db_schemas",
+        "options": [
+          {
+            "selected": false,
+            "text": "axe",
+            "value": "axe"
+          },
+          {
+            "selected": false,
+            "text": "events",
+            "value": "events"
+          },
+          {
+            "selected": true,
+            "text": "orgs",
+            "value": "orgs"
+          },
+          {
+            "selected": false,
+            "text": "refs",
+            "value": "refs"
+          },
+          {
+            "selected": false,
+            "text": "results",
+            "value": "results"
+          },
+          {
+            "selected": false,
+            "text": "targets",
+            "value": "targets"
+          }
+        ],
+        "query": "axe, events, orgs, refs, results, targets",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "System Overview",
+  "uid": "c9e94478-9742-4610-ad28-47d8f759f2ef",
+  "version": 8,
+  "weekStart": ""
+}
