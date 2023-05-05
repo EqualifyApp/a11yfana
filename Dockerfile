@@ -4,9 +4,10 @@ ARG GRAFANA_VERSION="latest"
 FROM grafana/grafana:${GRAFANA_VERSION}
 
 # Copy custom configuration files
-COPY grafana/grafana.ini /etc/grafana/grafana.ini
-COPY grafana/ldap.toml /etc/grafana/ldap.toml
-COPY grafana/provisioning /etc/grafana/provisioning
+COPY ./grafana/grafana.ini /etc/grafana/grafana.ini
+COPY ./grafana/ldap.toml /etc/grafana/ldap.toml
+COPY ./grafana/provisioning /etc/grafana/provisioning
+
 
 # Arguments and Environment variables
 ARG GF_INSTALL_IMAGE_RENDERER_PLUGIN="false"
